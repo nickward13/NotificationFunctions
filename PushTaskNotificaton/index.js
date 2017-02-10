@@ -1,4 +1,5 @@
 module.exports = function (context, req) {
+    
     context.log('Node.js HTTP trigger function processed a request. RequestUri=%s', req.originalUrl);
 
     if (req.query.TaskName || (req.body && req.body.TaskName)) {
