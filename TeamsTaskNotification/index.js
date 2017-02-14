@@ -16,7 +16,7 @@ module.exports = function (context, req) {
                 json: requestData
             }, 
                 function (error, response, body) {
-                    if (!error && response.statusCode === 200) {
+                    if (response.statusCode === 200) {
                         context.res = {
                             body: "Notification sent"
                         }
