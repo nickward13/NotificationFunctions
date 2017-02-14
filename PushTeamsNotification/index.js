@@ -19,7 +19,7 @@ module.exports = function (context, req) {
             path: '/webhook/fb04a14e-4555-4a12-a0a7-e8493af4b26b@72f988bf-86f1-41af-91ab-2d7cd011db47/IncomingWebhook/1c31238a6d1045d39b73112e54809e39/75fbf278-a8ae-48b3-a5e5-c8ee58cad87f',
             method: 'POST',
             headers: {
-                'accept': 'application/json'
+                'Content-Type': 'application/json'
             }
         };
 
