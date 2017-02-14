@@ -11,6 +11,8 @@ module.exports = function (context, req) {
         var post_data = json.stringify({
             'text': 'test2'
         });
+
+        context.log('Notification to be sent: %s', post_data);
         
         var post_options = {
             host: 'outlook.office.com',
