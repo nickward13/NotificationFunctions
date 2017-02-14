@@ -1,29 +1,22 @@
 module.exports = function (context, req) {
     
+    
     context.log('Node.js HTTP trigger function processed a request. RequestUri=%s', req.originalUrl);
 
+    var request = require("request");
+    
     if (req.query.TaskName || (req.body && req.body.TaskName)) {
-        var azure = require('azure-sb');
-
-        var notificationHubService = azure.createNotificationHubService('TaskPushNotifications', 'Endpoint=sb://tasksnotifications.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=8By6fffZWND7x4c0BUWdHXqFpvDjj9nNULPX9LKBeyA=');
-
-        var payload = '<toast><visual><binding template="ToastText01"><text id="1">Task completed: ' + (req.query.TaskName || req.body.TaskName) + '!</text></binding></visual></toast>';
-
-        notificationHubService.wns.send(null, payload, 'wns/toast', function (error) {
-            if (!error) {
-                // notification sent
-                context.res = {
-                    body: "Notification sent"
-
-                };
+        
+        request({
+            uri: "https://outlook.office.com/webhook/fb04a14e-4555-4a12-a0a7-e8493af4b26b@72f988bf-86f1-41af-91ab-2d7cd011db47/IncomingWebhook/1c31238a6d1045d39b73112e54809e39/75fbf278-a8ae-48b3-a5e5-c8ee58cad87f",
+            method: "POST",
+            timeout: 1000,
+            form: {
+                text: 'Task completed: ' + (req.query.TaskName || req.body.TaskName) + '!'
             }
-        });
-
-        context.res = {
-            // status: 200, /* Defaults to 200 */
-
-            body: "Notification sent for task: " + (req.query.TaskName || req.body.TaskName)
-        };
+        }, function(error, response, body){
+            context.log(body);
+        })
     }
     else {
         context.res = {
